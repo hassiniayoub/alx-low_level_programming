@@ -1,4 +1,4 @@
-#inclulde "main.h"
+#include "main.h"
 
 /**
  * _strlen - returns the length of a string
@@ -30,11 +30,10 @@ int _strlen(char *s)
 
 char *_strcpy(char *dest, char *src)
 {
-        while (*src)
-	{
- 	   *dest = *src;
-	   src++;
-	   dest++;
-	}
+	int i;
+
+	for (i = 0; i <= _strlen(src); i++)
+		dest[i] = src[i];
+
 	return (dest);
 }
