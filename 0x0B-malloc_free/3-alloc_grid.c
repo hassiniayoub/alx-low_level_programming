@@ -22,7 +22,7 @@ int **alloc_grid(int width, int height)
 	if (grid == NULL) /* validate memory */
 		return (NULL);
 
-	for (i = 0; i < height; i++) /*allocate memory for columns of each row*/
+	for (i = 0; i < height; i++) /*allocate memory for columns of eachrow*/
 	{
 		grid[i] = malloc(width * sizeof(int));
 		if (grid[i] == NULL) /* validate memory */
