@@ -1,88 +1,91 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include "dog.h"
 
 /**
- * len - find length of string
- * @str: string
- * Return: length
+ * _strlen - returns the length of a string
+ * @s: string to evaluate
+ *
+ * Return: the length of the string
  */
-
-int len(char *str)
+int _strlen(char *s)
 {
 	int i;
 
-	for (i = 0; *(str + i); i++)
-		;
+	i = 0;
+
+	while (s[i] != '\0')
+	{
+		i++;
+	}
+
 	return (i);
 }
 
 /**
- * strcpy - copies the string pointed to by src,
- * including the terminating null byte (\0),
+ * *_strcpy - copies the string pointed to by src
+ * including the terminating null byte (\0)
  * to the buffer pointed to by dest
- * @dest: copy source to this buffer
- * @src: this is the source to copy
- * Return: copy of original source
+ * @dest: pointer to the buffer in which we copy the string
+ * @src: string to be copied
+ *
+ * Return: the pointer to dest
  */
-
-char *strcpy(char *dest, char *src)
+char *_strcpy(char *dest, char *src)
 {
-	int i;
+	int len, i;
 
-	for (i = 0; i <= len(src); i++)
+	len = 0;
+
+	while (src[len] != '\0')
+	{
+		len++;
+	}
+
+	for (i = 0; i < len; i++)
+	{
 		dest[i] = src[i];
+	}
+	dest[i] = '\0';
+
 	return (dest);
 }
 
 /**
- * new_dog - create new instance of struct dog.
- * @name: member
- * @age: member
- * @owner: member
- * Return: initialized instance of struct dog
+ * new_dog - creates a new dog
+ * @name: name of the dog
+ * @age: age of the dog
+ * @owner: owner of the dog
+ *
+ * Return: pointer to the new dog (Success), NULL otherwise
  */
-
 dog_t *new_dog(char *name, float age, char *owner)
 {
-	dog_t *dog1;
-	char *copy_of_name;
-	char *copy_of_owner;
+	dog_t *dog;
+	int len1, len2;
 
-	dog1 = malloc(sizeof(dog_t)); /* validate if dog1 initiatedCorrectly */
-	if (dog1 == NULL)
+	len1 = _strlen(name);
+	len2 = _strlen(owner);
+
+	dog = malloc(sizeof(dog_t));
+	if (dog == NULL)
 		return (NULL);
 
-	dog1->age = age;
-
-	/* make copies of a struct members and validate, else free on error */
-	/* set values of struct members to copies of arguments or set NULL */
-	if (name != NULL)
+	dog->name = malloc(sizeof(char) * (len1 + 1));
+	if (dog->name == NULL)
 	{
-		copy_of_name = malloc(len(name) + 1);
-		if (copy_of_name == NULL)
-		{
-			free(dog1);
-			return (NULL);
-		}
-		dog1->name = strcpy(copy_of_name, name);
+		free(dog);
+		return (NULL);
 	}
-	else
-		dog1->name = NULL;
-
-	if (owner != NULL)
+	dog->owner = malloc(sizeof(char) * (len2 + 1));
+	if (dog->owner == NULL)
 	{
-		copy_of_owner = malloc(len(owner) + 1);
-		if (copy_of_owner == NULL)
-		{
-			free(copy_of_name);
-			free(dog1);
-			return (NULL);
-		}
-		dog1->owner = strcpy(copy_of_owner, owner);
+		free(dog);
+		free(dog->name);
+		return (NULL);
 	}
-	else
-		dog1->owner = NULL;
+	_strcpy(dog->name, name);
+	_strcpy(dog->owner, owner);
+	dog->age = age;
 
-	return (dog1);
+	return (dog);
 }
