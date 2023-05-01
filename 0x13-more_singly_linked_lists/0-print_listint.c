@@ -14,7 +14,7 @@ size_t print_listint(const listint_t *h)
 	{
 		printf("%d\n", h->n); /* Autofills=0 if no value is given */
 
-		count += 1;
+		count++;
 		h = h->next;
 	}
 
